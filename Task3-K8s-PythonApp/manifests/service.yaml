@@ -1,1 +1,11 @@
-<service.yaml content>
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-service
+spec:
+  selector:
+    app: python-app
+  ports:
+    - port: 80
+      targetPort: 5000
+  type: ClusterIP
