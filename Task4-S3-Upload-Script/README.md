@@ -1,1 +1,6 @@
-# Python S3 Upload Script
+# S3 Multipart Upload Script
+
+## Installation
+```bash
+pip install boto3
+
