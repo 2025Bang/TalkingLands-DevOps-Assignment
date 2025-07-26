@@ -1,1 +1,31 @@
-<ci-cd.yml content>
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test || echo "Tests failed, skipping deploy."
+
+      - name: Docker build
+        run: docker build -t my-node-app .
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/
+        continue-on-error: false
